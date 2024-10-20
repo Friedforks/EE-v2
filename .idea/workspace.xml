@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66c2bac9-4849-4d3e-b646-593334eb31a4" name="Changes" comment="Initial commit" />
+    <list default="true" id="66c2bac9-4849-4d3e-b646-593334eb31a4" name="Changes" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +33,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Friedforks/EE.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/state-spaces/mamba.git&quot;,
     &quot;accountId&quot;: &quot;eeca73d5-3199-4001-9df2-f1b2999565c5&quot;
   }
 }</component>
@@ -46,34 +48,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.ckan.executor": "Run",
-    "Python.ctkan (1).executor": "Run",
-    "Python.ctkan.executor": "Run",
-    "Python.hybrid-cnn-transformer (1).executor": "Run",
-    "Python.hybrid-cnn-transformer.executor": "Debug",
-    "Python.hybrid-cnn1d-transformer (1).executor": "Run",
-    "Python.hybrid-cnn1d-transformer.executor": "Debug",
-    "Python.hybrid-cnn2d-transformer.executor": "Run",
-    "Python.hybrid-tcn-transformer.executor": "Run",
-    "Python.kan-transformer.executor": "Run",
-    "Python.loss-plot (1).executor": "Debug",
-    "Python.tcn-transformer.executor": "Run",
-    "Python.tcn.executor": "Run",
-    "Python.test.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/WorkDir/ComputerScience/MachineLearning/EE/Transformer",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.ckan.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ctkan (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.ctkan.executor&quot;: &quot;Run&quot;,
+    &quot;Python.hybrid-cnn-transformer (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.hybrid-cnn-transformer.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.hybrid-cnn1d-transformer (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.hybrid-cnn1d-transformer.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.hybrid-cnn2d-transformer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.hybrid-tcn-transformer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.kan-transformer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.loss-plot (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Python.tcn-transformer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.tcn.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/WorkDir/ComputerScience/MachineLearning/EE/Transformer&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\WorkDir\ComputerScience\MachineLearning\EE\Transformer" />
@@ -264,7 +266,8 @@
       <workItem from="1728827062446" duration="4619000" />
       <workItem from="1728928677489" duration="312000" />
       <workItem from="1728929463737" duration="686000" />
-      <workItem from="1728930166739" duration="304000" />
+      <workItem from="1728930166739" duration="521000" />
+      <workItem from="1729068722762" duration="348000" />
     </task>
     <task id="LOCAL-00001" summary="Update 9/9">
       <option name="closed" value="true" />
