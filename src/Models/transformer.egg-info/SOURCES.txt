@@ -1,0 +1,12 @@
+setup.py
+Transformer/Decoder.py
+Transformer/Embedding.py
+Transformer/Encoder.py
+Transformer/MultiHeadAttention.py
+Transformer/PositionWiseFeedForward.py
+Transformer/ScaledProductAttention.py
+Transformer/__init__.py
+transformer.egg-info/PKG-INFO
+transformer.egg-info/SOURCES.txt
+transformer.egg-info/dependency_links.txt
+transformer.egg-info/top_level.txt

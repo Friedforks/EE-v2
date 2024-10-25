@@ -1,0 +1,79 @@
+export CUDA_VISIBLE_DEVICES=1
+
+model_name=iTransformer1dSplit
+
+python -u run.py \
+  --is_training 1 \
+  --root_path ./dataset/Solar/ \
+  --data_path solar_AL.txt \
+  --model_id solar_96_96 \
+  --model $model_name \
+  --data Solar \
+  --features M \
+  --seq_len 96 \
+  --pred_len 96 \
+  --e_layers 2 \
+  --enc_in 137 \
+  --dec_in 137 \
+  --c_out 137 \
+  --des 'Exp' \
+  --train_epochs 5\
+  --learning_rate 0.0005 \
+  --itr 1
+
+python -u run.py \
+  --is_training 1 \
+  --root_path ./dataset/traffic/ \
+  --data_path traffic.csv \
+  --model_id traffic_96_96 \
+  --model $model_name \
+  --data custom \
+  --features M \
+  --seq_len 96 \
+  --pred_len 96 \
+  --e_layers 2 \
+  --enc_in 862 \
+  --dec_in 862 \
+  --c_out 862 \
+  --des 'Exp' \
+  --itr 1 \
+  --train_epochs 3
+
+# python -u run.py \
+#   --is_training 1 \
+#   --root_path ./dataset/Solar/ \
+#   --data_path solar_AL.txt \
+#   --model_id solar_96_192 \
+#   --model $model_name \
+#   --data Solar \
+#   --features M \
+#   --seq_len 96 \
+#   --pred_len 192 \
+#   --e_layers 2 \
+#   --enc_in 137 \
+#   --dec_in 137 \
+#   --c_out 137 \
+#   --des 'Exp' \
+#   --train_epochs 5\
+#   --learning_rate 0.0005 \
+#   --itr 1
+
+# python -u run.py \
+#   --is_training 1 \
+#   --root_path ./dataset/Solar/ \
+#   --data_path solar_AL.txt \
+#   --model_id solar_96_336 \
+#   --model $model_name \
+#   --data Solar \
+#   --features M \
+#   --seq_len 96 \
+#   --pred_len 336 \
+#   --e_layers 2 \
+#   --enc_in 137 \
+#   --dec_in 137 \
+#   --c_out 137 \
+#   --des 'Exp' \
+#   --train_epochs 5\
+#   --learning_rate 0.0005 \
+#   --itr 1
+

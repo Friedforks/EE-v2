@@ -4,10 +4,179 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66c2bac9-4849-4d3e-b646-593334eb31a4" name="Changes" comment="Update for final draft">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/AMD/hybrid_transformer2d_test_loss_log.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/AMD/hybrid_transformer2d_train_loss_log.npy" beforeDir="false" />
+    <list default="true" id="66c2bac9-4849-4d3e-b646-593334eb31a4" name="Changes" comment="Final version">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/.$AttentionInTCformer.drawio.bkp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/.$AttentionInTimeSeries.drawio.bkp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/.$StructureDiagram.drawio.bkp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/AttentionInTCformer.drawio" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/AttentionInTCformer.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/AttentionInTimeSeries.drawio" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/AttentionInTimeSeries.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/AttentionInTimeSeries_DESKTOP-BG08AOP_Oct-20-212421-2024_Conflict.drawio" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/Convolution Operation.drawio" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/LSTM-600519.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/StructureDiagram.drawio" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/StructureDiagram.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/dataset-shape.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/efficiency-cmp1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/efficiency-cmp2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/transformer-600519.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transformer/Decoder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transformer/Embedding.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transformer/Encoder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transformer/MultiHeadAttention.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transformer/PositionWiseFeedForward.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transformer/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transformer/ScaledProductAttention.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transformer/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/build/lib/Transformer/Decoder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/build/lib/Transformer/Embedding.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/build/lib/Transformer/Encoder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/build/lib/Transformer/MultiHeadAttention.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/build/lib/Transformer/PositionWiseFeedForward.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/build/lib/Transformer/ScaledProductAttention.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/build/lib/Transformer/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/setup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/transformer.egg-info/PKG-INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/transformer.egg-info/SOURCES.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/transformer.egg-info/dependency_links.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/transformer.egg-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/data_provider/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/data_provider/data_factory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/data_provider/data_loader.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/ETT-small/ETTh1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/ETT-small/ETTh2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/ETT-small/ETTm1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/ETT-small/ETTm2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/PEMS/PEMS03.npz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/PEMS/PEMS04.npz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/PEMS/PEMS07.npz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/PEMS/PEMS08.npz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/Solar/solar_AL.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/electricity/electricity.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/exchange_rate/exchange_rate.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/traffic/traffic.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/dataset/weather/weather.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/experiments/exp_basic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/experiments/exp_long_term_forecasting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/experiments/exp_long_term_forecasting_partial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/ablations.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/algorithm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/analysis.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/architecture.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/boosting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/boosting_trm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/datasets.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/datasets_mtsf.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/efficiency.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/efficient.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/formulations.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/generability.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/groups.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/increase_lookback.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/layernorm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/main_results.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/main_results_alipay.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/motivation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/pi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/pt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/figures/radar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/layers/Embed.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/layers/SelfAttention_Family.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/layers/Transformer_EncDec.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/layers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/Flashformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/Flowformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/Informer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/Reformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/TCformer1dSplit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/TCformer2dSplit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/TCformerAutoReg.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/Transformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/iFlashformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/iFlowformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/iInformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/iReformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/iTransformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/model/iTransformer1dSplit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/mse_heatmap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/plotting-results.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/result_long_term_forecast.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/run.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/ECL/TCformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/ECL/Transformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/ECL/iTransformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/ECL/iTransformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/ETT/Transformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/ETT/iTransformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/ETT/iTransformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Exchange/Transformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Exchange/iTransformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Exchange/iTransformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/PEMS/Transformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/PEMS/iTransformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/PEMS/iTransformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/PEMS/tempCodeRunnerFile.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/SolarEnergy/Transformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/SolarEnergy/iTransformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/SolarEnergy/iTransformer1dSpllit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Traffic/TCformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Traffic/Transformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Traffic/iTransformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Traffic/iTransformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Traffic/tempCodeRunnerFile.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Weather/TCformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Weather/Transformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Weather/iTransformer.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Weather/iTransformer1dAutoReg.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Weather/iTransformer1dSplit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/Weather/iTransformerAutoReg.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/scripts/boost_performance/iTransformer1dSplit-compare.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/utils/masking.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/utils/metrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/utils/timefeatures.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/seq2seq/utils/tools.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/GetStockData.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/LSTM/CNN_LSTM1.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/LSTM/CNN_LSTM_KAN1.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/LSTM/LSTM.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/LSTM/LSTM_KAN.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/Mamba/Mamba.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/Mamba/mamba.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/Mamba/pscan.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/Transformer/Transformer-exp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/Transformer/Transformer.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiments/single-step-prediction/results.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/AMD/hybrid_transformer1d_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/AMD/hybrid_transformer1d_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/AMD/transformer_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/AMD/transformer_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/exchange_rate/TCformer_1d_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/exchange_rate/TCformer_1d_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/exchange_rate/TCformer_2d_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/exchange_rate/TCformer_2d_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/exchange_rate/transformer_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/exchange_rate/transformer_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/traffic/TCformer_1d_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/traffic/TCformer_1d_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/traffic/TCformer_2d_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/traffic/TCformer_2d_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/traffic/transformer_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/traffic/transformer_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/weather/TCformer1d.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/weather/TCformer_1d_train_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/weather/transformer.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/weather/transformer_train_loss_log.npy" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -271,6 +440,7 @@
       <workItem from="1728930166739" duration="521000" />
       <workItem from="1729068722762" duration="348000" />
       <workItem from="1729441583093" duration="354000" />
+      <workItem from="1729872646175" duration="333000" />
     </task>
     <task id="LOCAL-00001" summary="Update 9/9">
       <option name="closed" value="true" />
@@ -320,7 +490,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729441734249</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Final version">
+      <option name="closed" value="true" />
+      <created>1729872697364</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1729872697364</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,7 +551,8 @@
     <MESSAGE value="Added multistep future prediction, amended the iTransformer code and added TCformer1d and TCformer1dSplit" />
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Update for final draft" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update for final draft" />
+    <MESSAGE value="Final version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
