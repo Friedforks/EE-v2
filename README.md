@@ -45,7 +45,7 @@ bash src/experiments/seq2seq/scripts/boost_performance/iTransformer1dSplit-compa
 ```
 ## Data
 
-![data](./Diagrams/dataset-shape.png)
+![data](./images/dataset-shape.png)
 The data used in the experiments are mainly from the `iTransformer` repository. You can find it here: https://github.com/thuml/iTransformer
 
 For the Chinese stock data, it's downloaded using the [BaoStock API](http://baostock.com/baostock/index.php/%E9%A6%96%E9%A1%B5)
