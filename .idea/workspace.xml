@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66c2bac9-4849-4d3e-b646-593334eb31a4" name="Changes" comment="Initial commit">
+    <list default="true" id="66c2bac9-4849-4d3e-b646-593334eb31a4" name="Changes" comment="Update for final draft">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/AMD/hybrid_transformer2d_test_loss_log.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/experiments/loss-data/AMD/hybrid_transformer2d_train_loss_log.npy" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,6 +270,7 @@
       <workItem from="1728929463737" duration="686000" />
       <workItem from="1728930166739" duration="521000" />
       <workItem from="1729068722762" duration="348000" />
+      <workItem from="1729441583093" duration="354000" />
     </task>
     <task id="LOCAL-00001" summary="Update 9/9">
       <option name="closed" value="true" />
@@ -309,7 +312,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728930394658</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update for final draft">
+      <option name="closed" value="true" />
+      <created>1729441734249</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1729441734249</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +372,8 @@
     <MESSAGE value="Update in gitignore" />
     <MESSAGE value="Added multistep future prediction, amended the iTransformer code and added TCformer1d and TCformer1dSplit" />
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="Update for final draft" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update for final draft" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
