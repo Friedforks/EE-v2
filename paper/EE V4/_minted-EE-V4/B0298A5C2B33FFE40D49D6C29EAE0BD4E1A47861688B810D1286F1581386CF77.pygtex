@@ -1,0 +1,270 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{seaborn} \PYG{k}{as} \PYG{n+nn}{sns}
+
+\PYG{n}{filepath} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZti{}/Documents/ML/EE/data/stock\PYGZhy{}data/600519.csv\PYGZsq{}}
+\PYG{n}{data} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{filepath}\PYG{p}{)}
+\PYG{n}{data} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{sort\PYGZus{}values}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Date\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{head}\PYG{p}{())}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{)}
+
+\PYG{n}{sns}\PYG{o}{.}\PYG{n}{set\PYGZus{}style}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}darkgrid\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mi}{9}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}Close\PYGZsq{}}\PYG{p}{]])}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\PYG{n}{price} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}Close\PYGZsq{}}\PYG{p}{]]}
+\PYG{c+c1}{\PYGZsh{} split = int(0.1 * len(price))}
+\PYG{c+c1}{\PYGZsh{} price= price[\PYGZhy{}split:]}
+\PYG{c+c1}{\PYGZsh{} print(price.info())}
+
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.preprocessing} \PYG{k+kn}{import} \PYG{n}{MinMaxScaler}
+\PYG{n}{scaler} \PYG{o}{=} \PYG{n}{MinMaxScaler}\PYG{p}{(}\PYG{n}{feature\PYGZus{}range}\PYG{o}{=}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{n}{price}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Close\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{price}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Close\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{price}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Close\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}\PYGZpc{}\PYGZpc{}}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{price}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Close\PYGZsq{}}\PYG{p}{])}
+\PYG{c+c1}{\PYGZsh{}\PYGZpc{}\PYGZpc{} md}
+\PYG{c+c1}{\PYGZsh{}\PYGZpc{}\PYGZpc{}}
+\PYG{c+c1}{\PYGZsh{} def split\PYGZus{}data(stock, lookback):}
+\PYG{c+c1}{\PYGZsh{}     data\PYGZus{}raw = stock.to\PYGZus{}numpy()}
+\PYG{c+c1}{\PYGZsh{}     data = []}
+\PYG{c+c1}{\PYGZsh{}     \PYGZsh{} print(data)}
+
+\PYG{c+c1}{\PYGZsh{}     \PYGZsh{} you can free play（seq\PYGZus{}length）}
+\PYG{c+c1}{\PYGZsh{}     for index in range(len(data\PYGZus{}raw) \PYGZhy{} lookback):}
+\PYG{c+c1}{\PYGZsh{}         data.append(data\PYGZus{}raw[index: index + lookback])}
+
+\PYG{c+c1}{\PYGZsh{}     data = np.array(data)}
+\PYG{c+c1}{\PYGZsh{}     test\PYGZus{}set\PYGZus{}size = int(np.round(0.2 * data.shape[0]))}
+\PYG{c+c1}{\PYGZsh{}     train\PYGZus{}set\PYGZus{}size = data.shape[0] \PYGZhy{} (test\PYGZus{}set\PYGZus{}size)}
+
+\PYG{c+c1}{\PYGZsh{}     x\PYGZus{}train = data[:train\PYGZus{}set\PYGZus{}size, :\PYGZhy{}1, :]}
+\PYG{c+c1}{\PYGZsh{}     y\PYGZus{}train = data[:train\PYGZus{}set\PYGZus{}size, \PYGZhy{}1, :]}
+
+\PYG{c+c1}{\PYGZsh{}     x\PYGZus{}test = data[train\PYGZus{}set\PYGZus{}size:, :\PYGZhy{}1]}
+\PYG{c+c1}{\PYGZsh{}     y\PYGZus{}test = data[train\PYGZus{}set\PYGZus{}size:, \PYGZhy{}1, :]}
+
+\PYG{c+c1}{\PYGZsh{}     return [x\PYGZus{}train, y\PYGZus{}train, x\PYGZus{}test, y\PYGZus{}test]}
+
+
+\PYG{c+c1}{\PYGZsh{} lookback = 20}
+\PYG{c+c1}{\PYGZsh{} X\PYGZus{}train, y\PYGZus{}train, x\PYGZus{}test, y\PYGZus{}test = split\PYGZus{}data(price, lookback)}
+\PYG{c+c1}{\PYGZsh{} print(\PYGZsq{}x\PYGZus{}train.shape = \PYGZsq{}, x\PYGZus{}train.shape)}
+\PYG{c+c1}{\PYGZsh{} print(\PYGZsq{}y\PYGZus{}train.shape = \PYGZsq{}, y\PYGZus{}train.shape)}
+\PYG{c+c1}{\PYGZsh{} print(\PYGZsq{}x\PYGZus{}test.shape = \PYGZsq{}, x\PYGZus{}test.shape)}
+\PYG{c+c1}{\PYGZsh{} print(\PYGZsq{}y\PYGZus{}test.shape = \PYGZsq{}, y\PYGZus{}test.shape)}
+
+
+
+\PYG{k}{def} \PYG{n+nf}{create\PYGZus{}sequences}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{seq\PYGZus{}length}\PYG{p}{):}
+    \PYG{n}{sequences} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{labels} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n}{seq\PYGZus{}length}\PYG{p}{):}
+        \PYG{n}{seq} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{i}\PYG{p}{:}\PYG{n}{i} \PYG{o}{+} \PYG{n}{seq\PYGZus{}length}\PYG{p}{]}
+        \PYG{n}{label} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{i} \PYG{o}{+} \PYG{n}{seq\PYGZus{}length}\PYG{p}{]}
+        \PYG{n}{sequences}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{seq}\PYG{p}{)}
+        \PYG{n}{labels}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{label}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{sequences}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{labels}\PYG{p}{)}
+
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+
+\PYG{n}{lookback}\PYG{o}{=}\PYG{l+m+mi}{20}
+
+\PYG{n}{X}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{create\PYGZus{}sequences}\PYG{p}{(}\PYG{n}{price}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}Close\PYGZsq{}}\PYG{p}{]]}\PYG{o}{.}\PYG{n}{values}\PYG{p}{,} \PYG{n}{lookback}\PYG{p}{)}
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,}\PYG{n}{X\PYGZus{}test}\PYG{p}{,}\PYG{n}{y\PYGZus{}train}\PYG{p}{,}\PYG{n}{y\PYGZus{}test}\PYG{o}{=}\PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mf}{0.1}\PYG{p}{,}\PYG{n}{shuffle}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,}\PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+\PYG{n}{X\PYGZus{}train}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{,}\PYG{n}{X\PYGZus{}test}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{,}\PYG{n}{y\PYGZus{}train}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{,}\PYG{n}{y\PYGZus{}test}\PYG{o}{.}\PYG{n}{shape}
+\PYG{c+c1}{\PYGZsh{}\PYGZpc{}\PYGZpc{}}
+\PYG{c+c1}{\PYGZsh{} shuffle training dataset}
+\PYG{c+c1}{\PYGZsh{} indices = np.random.permutation(len(X\PYGZus{}train))}
+\PYG{c+c1}{\PYGZsh{} X\PYGZus{}train = X\PYGZus{}train[indices]}
+\PYG{c+c1}{\PYGZsh{} y\PYGZus{}train = y\PYGZus{}train[indices]}
+\PYG{k+kn}{import} \PYG{n+nn}{torch}
+\PYG{k+kn}{import} \PYG{n+nn}{torch.nn} \PYG{k}{as} \PYG{n+nn}{nn}
+\PYG{k+kn}{from} \PYG{n+nn}{fastkan} \PYG{k+kn}{import} \PYG{n}{FastKAN} \PYG{k}{as} \PYG{n}{KAN}
+\PYG{k+kn}{import} \PYG{n+nn}{torch.nn.functional} \PYG{k}{as} \PYG{n+nn}{F}
+
+\PYG{n}{X\PYGZus{}train}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)}
+\PYG{n}{X\PYGZus{}test}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)}
+
+\PYG{n}{y\PYGZus{}train\PYGZus{}lstm} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n}{y\PYGZus{}train}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}test\PYGZus{}lstm} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)}
+\PYG{n}{input\PYGZus{}dim} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{hidden\PYGZus{}dim} \PYG{o}{=} \PYG{l+m+mi}{32}
+\PYG{n}{num\PYGZus{}layers} \PYG{o}{=} \PYG{l+m+mi}{2}
+\PYG{n}{output\PYGZus{}dim} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{num\PYGZus{}epochs} \PYG{o}{=} \PYG{l+m+mi}{200}
+
+\PYG{n}{device}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{device}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}cuda\PYGZsq{}} \PYG{k}{if} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{is\PYGZus{}available}\PYG{p}{()} \PYG{k}{else} \PYG{l+s+s1}{\PYGZsq{}cpu\PYGZsq{}}\PYG{p}{)}
+
+\PYG{k}{class} \PYG{n+nc}{LSTM}\PYG{p}{(}\PYG{n}{nn}\PYG{o}{.}\PYG{n}{Module}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{input\PYGZus{}dim}\PYG{p}{,} \PYG{n}{hidden\PYGZus{}dim}\PYG{p}{,} \PYG{n}{num\PYGZus{}layers}\PYG{p}{,} \PYG{n}{output\PYGZus{}dim}\PYG{p}{):}
+        \PYG{n+nb}{super}\PYG{p}{(}\PYG{n}{LSTM}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{hidden\PYGZus{}dim} \PYG{o}{=} \PYG{n}{hidden\PYGZus{}dim}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{num\PYGZus{}layers} \PYG{o}{=} \PYG{n}{num\PYGZus{}layers}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{lstm} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{LSTM}\PYG{p}{(}\PYG{n}{input\PYGZus{}dim}\PYG{p}{,} \PYG{n}{hidden\PYGZus{}dim}\PYG{p}{,} \PYG{n}{num\PYGZus{}layers}\PYG{p}{,} \PYG{n}{batch\PYGZus{}first}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}\PYG{n}{bidirectional}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{fc1}\PYG{o}{=}\PYG{n}{nn}\PYG{o}{.}\PYG{n}{Linear}\PYG{p}{(}\PYG{n}{hidden\PYGZus{}dim}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{n}{output\PYGZus{}dim}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} self.kan=KAN([hidden\PYGZus{}dim, output\PYGZus{}dim])}
+
+    \PYG{k}{def} \PYG{n+nf}{forward}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{x}\PYG{p}{):}
+        \PYG{n}{h0} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{num\PYGZus{}layers}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{x}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{),} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{hidden\PYGZus{}dim}\PYG{p}{)}\PYG{o}{.}\PYG{n}{requires\PYGZus{}grad\PYGZus{}}\PYG{p}{()}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+        \PYG{n}{c0} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{num\PYGZus{}layers}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{x}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{),} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{hidden\PYGZus{}dim}\PYG{p}{)}\PYG{o}{.}\PYG{n}{requires\PYGZus{}grad\PYGZus{}}\PYG{p}{()}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+        \PYG{n}{out}\PYG{p}{,} \PYG{p}{(}\PYG{n}{hn}\PYG{p}{,} \PYG{n}{cn}\PYG{p}{)} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{lstm}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{p}{(}\PYG{n}{h0}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{(),} \PYG{n}{c0}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{()))}
+        \PYG{c+c1}{\PYGZsh{} out = self.kan(out[:, \PYGZhy{}1, :])}
+        \PYG{n}{out} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{fc1}\PYG{p}{(}\PYG{n}{out}\PYG{p}{[:,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{p}{:])}
+        \PYG{k}{return} \PYG{n}{out}
+
+
+
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{LSTM}\PYG{p}{(}\PYG{n}{input\PYGZus{}dim}\PYG{o}{=}\PYG{n}{input\PYGZus{}dim}\PYG{p}{,} \PYG{n}{hidden\PYGZus{}dim}\PYG{o}{=}\PYG{n}{hidden\PYGZus{}dim}\PYG{p}{,} \PYG{n}{output\PYGZus{}dim}\PYG{o}{=}\PYG{n}{output\PYGZus{}dim}\PYG{p}{,} \PYG{n}{num\PYGZus{}layers}\PYG{o}{=}\PYG{n}{num\PYGZus{}layers}\PYG{p}{)}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{n}{criterion} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{nn}\PYG{o}{.}\PYG{n}{MSELoss}\PYG{p}{()}
+\PYG{n}{optimiser} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{optim}\PYG{o}{.}\PYG{n}{Adam}\PYG{p}{(}\PYG{n}{model}\PYG{o}{.}\PYG{n}{parameters}\PYG{p}{(),} \PYG{n}{lr}\PYG{o}{=}\PYG{l+m+mf}{0.01}\PYG{p}{,}\PYG{n}{weight\PYGZus{}decay}\PYG{o}{=}\PYG{l+m+mf}{0.0001}\PYG{p}{)}
+\PYG{k+kn}{import} \PYG{n+nn}{time}
+
+\PYG{n}{hist} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{num\PYGZus{}epochs}\PYG{p}{)}
+\PYG{n}{start\PYGZus{}time} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+\PYG{n}{lstm} \PYG{o}{=} \PYG{p}{[]}
+
+\PYG{k}{for} \PYG{n}{t} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{num\PYGZus{}epochs}\PYG{p}{):}
+    \PYG{n}{y\PYGZus{}train\PYGZus{}pred} \PYG{o}{=} \PYG{n}{model}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{))}
+
+    \PYG{n}{loss} \PYG{o}{=} \PYG{n}{criterion}\PYG{p}{(}\PYG{n}{y\PYGZus{}train\PYGZus{}pred}\PYG{p}{,} \PYG{n}{y\PYGZus{}train\PYGZus{}lstm}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{))}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Epoch \PYGZdq{}}\PYG{p}{,} \PYG{n}{t}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}MSE: \PYGZdq{}}\PYG{p}{,} \PYG{n}{loss}\PYG{o}{.}\PYG{n}{item}\PYG{p}{())}
+    \PYG{n}{hist}\PYG{p}{[}\PYG{n}{t}\PYG{p}{]} \PYG{o}{=} \PYG{n}{loss}\PYG{o}{.}\PYG{n}{item}\PYG{p}{()}
+
+    \PYG{n}{optimiser}\PYG{o}{.}\PYG{n}{zero\PYGZus{}grad}\PYG{p}{()}
+    \PYG{n}{loss}\PYG{o}{.}\PYG{n}{backward}\PYG{p}{()}
+    \PYG{n}{optimiser}\PYG{o}{.}\PYG{n}{step}\PYG{p}{()}
+
+\PYG{n}{training\PYGZus{}time} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{n}{start\PYGZus{}time}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Training time: }\PYG{l+s+si}{\PYGZob{}\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{training\PYGZus{}time}\PYG{p}{))}
+\PYG{n}{X}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}
+\PYG{c+c1}{\PYGZsh{}\PYGZpc{}\PYGZpc{}}
+\PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{,}\PYG{n}{price}\PYG{o}{.}\PYG{n}{shape}
+\PYG{c+c1}{\PYGZsh{}\PYGZpc{}\PYGZpc{}}
+\PYG{n}{predict} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{scaler}\PYG{o}{.}\PYG{n}{inverse\PYGZus{}transform}\PYG{p}{(}\PYG{n}{model}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{))}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{()}\PYG{o}{.}\PYG{n}{cpu}\PYG{p}{()}\PYG{o}{.}\PYG{n}{numpy}\PYG{p}{()))}
+\PYG{n}{original} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{scaler}\PYG{o}{.}\PYG{n}{inverse\PYGZus{}transform}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{))}
+\PYG{c+c1}{\PYGZsh{}\PYGZpc{}\PYGZpc{}}
+\PYG{k+kn}{import} \PYG{n+nn}{seaborn} \PYG{k}{as} \PYG{n+nn}{sns}
+\PYG{n}{sns}\PYG{o}{.}\PYG{n}{set\PYGZus{}style}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}darkgrid\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{fig} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{14}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{))}
+
+\PYG{n}{ax} \PYG{o}{=} \PYG{n}{sns}\PYG{o}{.}\PYG{n}{lineplot}\PYG{p}{(}\PYG{n}{x} \PYG{o}{=} \PYG{n}{original}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{original}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Data\PYGZdq{}}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}royalblue\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax} \PYG{o}{=} \PYG{n}{sns}\PYG{o}{.}\PYG{n}{lineplot}\PYG{p}{(}\PYG{n}{x} \PYG{o}{=} \PYG{n}{predict}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{predict}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Prediction (LSTM)\PYGZdq{}}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}tomato\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} print(predict.index)}
+\PYG{c+c1}{\PYGZsh{} print(predict[0])}
+
+
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Stock price\PYGZsq{}}\PYG{p}{,} \PYG{n}{fontweight}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}bold\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Days\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Cost (USD)\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xticklabels}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} print(x\PYGZus{}test[\PYGZhy{}1])}
+\PYG{k+kn}{import} \PYG{n+nn}{math}\PYG{o}{,} \PYG{n+nn}{time}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{,}\PYG{n}{r2\PYGZus{}score}
+
+\PYG{c+c1}{\PYGZsh{} make predictions}
+\PYG{n}{y\PYGZus{}test\PYGZus{}pred} \PYG{o}{=} \PYG{n}{model}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} invert predictions}
+\PYG{n}{y\PYGZus{}train\PYGZus{}pred} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{inverse\PYGZus{}transform}\PYG{p}{(}\PYG{n}{y\PYGZus{}train\PYGZus{}pred}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{()}\PYG{o}{.}\PYG{n}{cpu}\PYG{p}{()}\PYG{o}{.}\PYG{n}{numpy}\PYG{p}{())}
+\PYG{n}{y\PYGZus{}train} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{inverse\PYGZus{}transform}\PYG{p}{(}\PYG{n}{y\PYGZus{}train\PYGZus{}lstm}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{()}\PYG{o}{.}\PYG{n}{numpy}\PYG{p}{())}
+\PYG{n}{y\PYGZus{}test\PYGZus{}pred} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{inverse\PYGZus{}transform}\PYG{p}{(}\PYG{n}{y\PYGZus{}test\PYGZus{}pred}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{()}\PYG{o}{.}\PYG{n}{cpu}\PYG{p}{()}\PYG{o}{.}\PYG{n}{numpy}\PYG{p}{())}
+\PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{inverse\PYGZus{}transform}\PYG{p}{(}\PYG{n}{y\PYGZus{}test\PYGZus{}lstm}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{()}\PYG{o}{.}\PYG{n}{numpy}\PYG{p}{())}
+
+\PYG{c+c1}{\PYGZsh{} calculate root mean squared error}
+\PYG{n}{trainScore} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{y\PYGZus{}train}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{y\PYGZus{}train\PYGZus{}pred}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{]))}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Train Score: }\PYG{l+s+si}{\PYGZpc{}.2f}\PYG{l+s+s1}{ RMSE\PYGZsq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{trainScore}\PYG{p}{))}
+\PYG{n}{testScore} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{y\PYGZus{}test\PYGZus{}pred}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Test Score: }\PYG{l+s+si}{\PYGZpc{}.2f}\PYG{l+s+s1}{ MSE\PYGZsq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{testScore}\PYG{p}{))}
+
+
+\PYG{n}{trainr2Score} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}train}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{y\PYGZus{}train\PYGZus{}pred}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Train Score: }\PYG{l+s+si}{\PYGZpc{}.2f}\PYG{l+s+s1}{ R2\PYGZsq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{trainr2Score}\PYG{p}{))}
+\PYG{n}{testr2Score} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{y\PYGZus{}test\PYGZus{}pred}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Test Score: }\PYG{l+s+si}{\PYGZpc{}.2f}\PYG{l+s+s1}{ R2\PYGZsq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{testr2Score}\PYG{p}{))}
+\PYG{n}{lstm}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{trainScore}\PYG{p}{)}
+\PYG{n}{lstm}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{testScore}\PYG{p}{)}
+\PYG{n}{lstm}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{training\PYGZus{}time}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} shift train predictions for plotting}
+\PYG{n}{trainPredictPlot} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{empty\PYGZus{}like}\PYG{p}{(}\PYG{n}{price}\PYG{p}{)}
+\PYG{n}{trainPredictPlot}\PYG{p}{[:,} \PYG{p}{:]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{nan}
+\PYG{n}{trainPredictPlot}\PYG{p}{[}\PYG{n}{lookback}\PYG{p}{:}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{y\PYGZus{}train\PYGZus{}pred}\PYG{p}{)}\PYG{o}{+}\PYG{n}{lookback}\PYG{p}{,} \PYG{p}{:]} \PYG{o}{=} \PYG{n}{y\PYGZus{}train\PYGZus{}pred}
+
+\PYG{c+c1}{\PYGZsh{} shift test predictions for plotting}
+\PYG{n}{testPredictPlot} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{empty\PYGZus{}like}\PYG{p}{(}\PYG{n}{price}\PYG{p}{)}
+\PYG{n}{testPredictPlot}\PYG{p}{[:,} \PYG{p}{:]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{nan}
+\PYG{n}{testPredictPlot}\PYG{p}{[}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{y\PYGZus{}train\PYGZus{}pred}\PYG{p}{)}\PYG{o}{+}\PYG{n}{lookback}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{price}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{p}{:]} \PYG{o}{=} \PYG{n}{y\PYGZus{}test\PYGZus{}pred}
+
+\PYG{n}{original} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{inverse\PYGZus{}transform}\PYG{p}{(}\PYG{n}{price}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Close\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{))}
+
+\PYG{n}{predictions} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{trainPredictPlot}\PYG{p}{,} \PYG{n}{testPredictPlot}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{predictions} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{predictions}\PYG{p}{,} \PYG{n}{original}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{result} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{predictions}\PYG{p}{)}
+\PYG{k+kn}{import} \PYG{n+nn}{plotly.express} \PYG{k}{as} \PYG{n+nn}{px}
+\PYG{k+kn}{import} \PYG{n+nn}{plotly.graph\PYGZus{}objects} \PYG{k}{as} \PYG{n+nn}{go}
+
+\PYG{n}{fig} \PYG{o}{=} \PYG{n}{go}\PYG{o}{.}\PYG{n}{Figure}\PYG{p}{()}
+\PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}trace}\PYG{p}{(}\PYG{n}{go}\PYG{o}{.}\PYG{n}{Scatter}\PYG{p}{(}\PYG{n}{go}\PYG{o}{.}\PYG{n}{Scatter}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{n}{result}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{n}{result}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}
+                    \PYG{n}{mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}lines\PYGZsq{}}\PYG{p}{,}
+                    \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Train prediction\PYGZsq{}}\PYG{p}{)))}
+\PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}trace}\PYG{p}{(}\PYG{n}{go}\PYG{o}{.}\PYG{n}{Scatter}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{n}{result}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{n}{result}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}
+                    \PYG{n}{mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}lines\PYGZsq{}}\PYG{p}{,}
+                    \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Test prediction\PYGZsq{}}\PYG{p}{))}
+\PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}trace}\PYG{p}{(}\PYG{n}{go}\PYG{o}{.}\PYG{n}{Scatter}\PYG{p}{(}\PYG{n}{go}\PYG{o}{.}\PYG{n}{Scatter}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{n}{result}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{n}{result}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{],}
+                    \PYG{n}{mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}lines\PYGZsq{}}\PYG{p}{,}
+                    \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Actual Value\PYGZsq{}}\PYG{p}{)))}
+\PYG{n}{fig}\PYG{o}{.}\PYG{n}{update\PYGZus{}layout}\PYG{p}{(}
+    \PYG{n}{xaxis}\PYG{o}{=}\PYG{n+nb}{dict}\PYG{p}{(}
+        \PYG{n}{showline}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
+        \PYG{n}{showgrid}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
+        \PYG{n}{showticklabels}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,}
+        \PYG{n}{linecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}
+    \PYG{p}{),}
+    \PYG{n}{yaxis}\PYG{o}{=}\PYG{n+nb}{dict}\PYG{p}{(}
+        \PYG{n}{title\PYGZus{}text}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Close (USD)\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{titlefont}\PYG{o}{=}\PYG{n+nb}{dict}\PYG{p}{(}
+            \PYG{n}{family}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Rockwell\PYGZsq{}}\PYG{p}{,}
+            \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{12}\PYG{p}{,}
+            \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,}
+        \PYG{p}{),}
+        \PYG{n}{showline}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
+        \PYG{n}{showgrid}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
+        \PYG{n}{showticklabels}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
+        \PYG{n}{linecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,}
+        \PYG{n}{ticks}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}outside\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{tickfont}\PYG{o}{=}\PYG{n+nb}{dict}\PYG{p}{(}
+            \PYG{n}{family}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Rockwell\PYGZsq{}}\PYG{p}{,}
+            \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{12}\PYG{p}{,}
+            \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,}
+        \PYG{p}{),}
+    \PYG{p}{),}
+    \PYG{n}{showlegend}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
+    \PYG{n}{template} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}plotly\PYGZus{}dark\PYGZsq{}}
+
+\PYG{p}{)}
+
+
+
+\PYG{n}{annotations} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{annotations}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb}{dict}\PYG{p}{(}\PYG{n}{xref}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}paper\PYGZsq{}}\PYG{p}{,} \PYG{n}{yref}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}paper\PYGZsq{}}\PYG{p}{,} \PYG{n}{x}\PYG{o}{=}\PYG{l+m+mf}{0.0}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{l+m+mf}{1.05}\PYG{p}{,}
+                              \PYG{n}{xanchor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}left\PYGZsq{}}\PYG{p}{,} \PYG{n}{yanchor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}bottom\PYGZsq{}}\PYG{p}{,}
+                              \PYG{n}{text}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Results (LSTM)\PYGZsq{}}\PYG{p}{,}
+                              \PYG{n}{font}\PYG{o}{=}\PYG{n+nb}{dict}\PYG{p}{(}\PYG{n}{family}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Rockwell\PYGZsq{}}\PYG{p}{,}
+                                        \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{26}\PYG{p}{,}
+                                        \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{),}
+                              \PYG{n}{showarrow}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{))}
+\PYG{n}{fig}\PYG{o}{.}\PYG{n}{update\PYGZus{}layout}\PYG{p}{(}\PYG{n}{annotations}\PYG{o}{=}\PYG{n}{annotations}\PYG{p}{)}
+
+\PYG{n}{fig}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{}\PYGZpc{}\PYGZpc{}}
+\end{Verbatim}

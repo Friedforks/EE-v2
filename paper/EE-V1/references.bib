@@ -1,0 +1,170 @@
+@inproceedings{attention-is-all-you-need,
+ author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, \L ukasz and Polosukhin, Illia},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {I. Guyon and U. Von Luxburg and S. Bengio and H. Wallach and R. Fergus and S. Vishwanathan and R. Garnett},
+ pages = {},
+ publisher = {Curran Associates, Inc.},
+ title = {Attention is All you Need},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf},
+ volume = {30},
+ year = {2017}
+}
+
+@inproceedings{few-shot-learners,
+ author = {Brown, Tom and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared D and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and Agarwal, Sandhini and Herbert-Voss, Ariel and Krueger, Gretchen and Henighan, Tom and Child, Rewon and Ramesh, Aditya and Ziegler, Daniel and Wu, Jeffrey and Winter, Clemens and Hesse, Chris and Chen, Mark and Sigler, Eric and Litwin, Mateusz and Gray, Scott and Chess, Benjamin and Clark, Jack and Berner, Christopher and McCandlish, Sam and Radford, Alec and Sutskever, Ilya and Amodei, Dario},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
+ pages = {1877--1901},
+ publisher = {Curran Associates, Inc.},
+ title = {Language Models are Few-Shot Learners},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf},
+ volume = {33},
+ year = {2020}
+}
+
+@misc{vit,
+Author = {Alexey Dosovitskiy and Lucas Beyer and Alexander Kolesnikov and Dirk Weissenborn and Xiaohua Zhai and Thomas Unterthiner and Mostafa Dehghani and Matthias Minderer and Georg Heigold and Sylvain Gelly and Jakob Uszkoreit and Neil Houlsby},
+Title = {An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale},
+Year = {2020},
+Eprint = {arXiv:2010.11929},
+}
+
+@misc{informer,
+Author = {Haoyi Zhou and Shanghang Zhang and Jieqi Peng and Shuai Zhang and Jianxin Li and Hui Xiong and Wancai Zhang},
+Title = {Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting},
+Year = {2020},
+Eprint = {arXiv:2012.07436},
+}
+
+@misc{patchtst,
+Author = {Yuqi Nie and Nam H. Nguyen and Phanwadee Sinthong and Jayant Kalagnanam},
+Title = {A Time Series is Worth 64 Words: Long-term Forecasting with Transformers},
+Year = {2022},
+Eprint = {arXiv:2211.14730},
+}
+
+@misc{nie2023timeseriesworth64,
+      title={A Time Series is Worth 64 Words: Long-term Forecasting with Transformers}, 
+      author={Yuqi Nie and Nam H. Nguyen and Phanwadee Sinthong and Jayant Kalagnanam},
+      year={2023},
+      eprint={2211.14730},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2211.14730}, 
+}
+
+@book{mlp,
+author = {Haykin, Simon},
+title = {Neural Networks: A Comprehensive Foundation},
+year = {1998},
+isbn = {0132733501},
+publisher = {Prentice Hall PTR},
+address = {USA},
+edition = {2nd},
+abstract = {From the Publisher: NEW TO THIS EDITION NEWNew chapters now cover such areas as: Support vector machines. Reinforcement learning/neurodynamic programming. Dynamically driven recurrent networks. NEW-Endof-chapter problems revised, improved and expanded in number. FEATURES Extensive, state-of-the-art coverage exposes the reader to the many facets of neural networks and helps them appreciate the technology's capabilities and potential applications. Detailed analysis of back-propagation learning and multi-layer perceptrons. Explores the intricacies of the learning processan essential component for understanding neural networks. Considers recurrent networks, such as Hopfield networks, Boltzmann machines, and meanfield theory machines, as well as modular networks, temporal processing, and neurodynamics. Integrates computer experiments throughout, giving the opportunity to see how neural networks are designed and perform in practice. Reinforces key concepts with chapter objectives, problems, worked examples, a bibliography, photographs, illustrations, and a thorough glossary. Includes a detailed and extensive bibliography for easy reference. Computer-oriented experiments distributed throughout the book Uses Matlab SE version 5.}
+}
+
+
+@ARTICLE{Lepikhin2020-jx,
+  title         = "{GShard}: Scaling giant models with conditional computation
+                   and automatic sharding",
+  author        = "Lepikhin, Dmitry and Lee, Hyoukjoong and Xu, Yuanzhong and
+                   Chen, Dehao and Firat, Orhan and Huang, Yanping and Krikun,
+                   Maxim and Shazeer, Noam and Chen, Zhifeng",
+  abstract      = "Neural network scaling has been critical for improving the
+                   model quality in many real-world machine learning
+                   applications with vast amounts of training data and compute.
+                   Although this trend of scaling is affirmed to be a sure-fire
+                   approach for better model quality, there are challenges on
+                   the path such as the computation cost, ease of programming,
+                   and efficient implementation on parallel devices. GShard is
+                   a module composed of a set of lightweight annotation APIs
+                   and an extension to the XLA compiler. It provides an elegant
+                   way to express a wide range of parallel computation patterns
+                   with minimal changes to the existing model code. GShard
+                   enabled us to scale up multilingual neural machine
+                   translation Transformer model with Sparsely-Gated
+                   Mixture-of-Experts beyond 600 billion parameters using
+                   automatic sharding. We demonstrate that such a giant model
+                   can efficiently be trained on 2048 TPU v3 accelerators in 4
+                   days to achieve far superior quality for translation from
+                   100 languages to English compared to the prior art.",
+  month         =  jun,
+  year          =  2020,
+  copyright     = "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.CL",
+  eprint        = "2006.16668"
+}
+
+
+@InProceedings{pmlr-v119-li20m,
+  title = 	 {Train Big, Then Compress: Rethinking Model Size for Efficient Training and Inference of Transformers},
+  author =       {Li, Zhuohan and Wallace, Eric and Shen, Sheng and Lin, Kevin and Keutzer, Kurt and Klein, Dan and Gonzalez, Joey},
+  booktitle = 	 {Proceedings of the 37th International Conference on Machine Learning},
+  pages = 	 {5958--5968},
+  year = 	 {2020},
+  editor = 	 {III, Hal Daumé and Singh, Aarti},
+  volume = 	 {119},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {13--18 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v119/li20m/li20m.pdf},
+  url = 	 {https://proceedings.mlr.press/v119/li20m.html},
+  abstract = 	 {Since hardware resources are limited, the objective of training deep learning models is typically to maximize accuracy subject to the time and memory constraints of training and inference. We study the impact of model size in this setting, focusing on Transformer models for NLP tasks that are limited by compute: self-supervised pretraining and high-resource machine translation. We first show that even though smaller Transformer models execute faster per iteration, wider and deeper models converge in significantly fewer steps. Moreover, this acceleration in convergence typically outpaces the additional computational overhead of using larger models. Therefore, the most compute-efficient training strategy is to counterintuitively train extremely large models but stop after a small number of iterations. This leads to an apparent trade-off between the training efficiency of large Transformer models and the inference efficiency of small Transformer models. However, we show that large models are more robust to compression techniques such as quantization and pruning than small models. Consequently, one can get the best of both worlds: heavily compressed, large models achieve higher accuracy than lightly compressed, small models.}
+}
+
+@misc{yan2021contnetuseconvolutiontransformer,
+      title={ConTNet: Why not use convolution and transformer at the same time?}, 
+      author={Haotian Yan and Zhe Li and Weijian Li and Changhu Wang and Ming Wu and Chuang Zhang},
+      year={2021},
+      eprint={2104.13497},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2104.13497}, 
+}
+
+@article{hewage2020temporal,
+  title={Temporal convolutional neural (TCN) network for an effective weather forecasting using time-series data from the local weather station},
+  author={Hewage, Pradeep and Behera, Ardhendu and Trovati, Marcello and Pereira, Ella and Ghahremani, Morteza and Palmieri, Francesco and Liu, Yonghuai},
+  journal={Soft Computing},
+  volume={24},
+  pages={16453--16482},
+  year={2020},
+  publisher={Springer}
+}
+
+@INPROCEEDINGS{cnntransformercompare,
+  author={Sonata, Ilvico and Heryadi, Yaya},
+  booktitle={2023 15th International Congress on Advanced Applied Informatics Winter (IIAI-AAI-Winter)}, 
+  title={Transformer and CNN Comparison for Time Series Classification Model}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={160-164},
+  abstract={In real life, many activities are performed sequentially. These activities must be carried out sequentially, such as the assembly process in the manufacturing production process. This series of activities cannot be reduced or added so that the main goal of the series of activities is achieved. Apart from that, there are also time series events that occur naturally, such as rainy and hot conditions in a certain area. The classification process of time series activities is very important to see the possibility of anomalies occurring. The significant development of machine learning models in recent years has made the process of classifying time series data increasingly researched. Several previous studies stated that deep learning models were more accurate in classifying time series data. In this paper, we will compare Convolutional Neural Network (CNN) and Transformer deep learning models in classifying time series data. Experimental results using the same public datasets for CNN and Transformer model show that the CNN model is more accurate than the Transformer model. The results of measuring accuracy using confusion matrix show that CNN has an accuracy of 92% and Transformer has an accuracy of 80%.},
+  keywords={Deep learning;Training;Time series analysis;Production;Transformers;Feature extraction;Data models;CNN;Deep learning;Time series;Transformer},
+  doi={10.1109/IIAI-AAI-Winter61682.2023.00038},
+  ISSN={},
+  month={Dec},}
+
+@inproceedings{autoformer,
+ author = {Wu, Haixu and Xu, Jiehui and Wang, Jianmin and Long, Mingsheng},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {M. Ranzato and A. Beygelzimer and Y. Dauphin and P.S. Liang and J. Wortman Vaughan},
+ pages = {22419--22430},
+ publisher = {Curran Associates, Inc.},
+ title = {Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2021/file/bcc0d400288793e8bdcd7c19a8ac0c2b-Paper.pdf},
+ volume = {34},
+ year = {2021}
+}
+
+@misc{baostock,
+  title = {BaoStock},
+  author = {{BaoStock}},
+  year = {2024},
+  url = {http://baostock.com/baostock/index.php/%E9%A6%96%E9%A1%B5},
+  note = {Accessed: 2024-09-10},
+  organization = {BaoStock.com}
+}

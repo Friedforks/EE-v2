@@ -1,0 +1,149 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{torch}
+\PYG{k+kn}{import} \PYG{n+nn}{torch.nn} \PYG{k}{as} \PYG{n+nn}{nn}
+\PYG{k+kn}{import} \PYG{n+nn}{torch.nn.functional} \PYG{k}{as} \PYG{n+nn}{F}
+\PYG{k+kn}{from} \PYG{n+nn}{layers.Transformer\PYGZus{}EncDec} \PYG{k+kn}{import} \PYG{n}{Encoder}\PYG{p}{,} \PYG{n}{EncoderLayer}
+\PYG{k+kn}{from} \PYG{n+nn}{layers.SelfAttention\PYGZus{}Family} \PYG{k+kn}{import} \PYG{n}{FullAttention}\PYG{p}{,} \PYG{n}{AttentionLayer}
+\PYG{k+kn}{from} \PYG{n+nn}{layers.Embed} \PYG{k+kn}{import} \PYG{n}{DataEmbedding\PYGZus{}inverted}
+
+
+\PYG{k}{class} \PYG{n+nc}{Model}\PYG{p}{(}\PYG{n}{nn}\PYG{o}{.}\PYG{n}{Module}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{configs}\PYG{p}{):}
+        \PYG{n+nb}{super}\PYG{p}{(}\PYG{n}{Model}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{seq\PYGZus{}len} \PYG{o}{=} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{seq\PYGZus{}len}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{pred\PYGZus{}len} \PYG{o}{=} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{pred\PYGZus{}len}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{output\PYGZus{}attention} \PYG{o}{=} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{output\PYGZus{}attention}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{use\PYGZus{}norm} \PYG{o}{=} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{use\PYGZus{}norm}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{d\PYGZus{}model} \PYG{o}{=} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{enc\PYGZus{}in} \PYG{o}{=} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{enc\PYGZus{}in}
+
+        \PYG{c+c1}{\PYGZsh{} CNN parameters}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{kernel\PYGZus{}size\PYGZus{}1} \PYG{o}{=} \PYG{l+m+mi}{5}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{stride\PYGZus{}1} \PYG{o}{=} \PYG{l+m+mi}{2}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{kernel\PYGZus{}size\PYGZus{}2} \PYG{o}{=} \PYG{l+m+mi}{3}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{stride\PYGZus{}2} \PYG{o}{=} \PYG{l+m+mi}{1}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{split\PYGZus{}factor}\PYG{o}{=}\PYG{l+m+mf}{0.8}
+        \PYG{n}{combined\PYGZus{}seq\PYGZus{}len} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cnn\PYGZus{}seq\PYGZus{}calc}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cnn\PYGZus{}seq\PYGZus{}calc}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{(}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{split\PYGZus{}factor}\PYG{o}{*}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{seq\PYGZus{}len}\PYG{p}{),} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{kernel\PYGZus{}size\PYGZus{}1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{stride\PYGZus{}1}\PYG{p}{),} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{kernel\PYGZus{}size\PYGZus{}2}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{stride\PYGZus{}2}\PYG{p}{)}\PYG{o}{+}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{seq\PYGZus{}len}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{split\PYGZus{}factor}\PYG{o}{*}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{seq\PYGZus{}len}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} First 1D CNN layer}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cnn1} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Conv1d}\PYG{p}{(}\PYG{n}{in\PYGZus{}channels}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{enc\PYGZus{}in}\PYG{p}{,}
+                              \PYG{n}{out\PYGZus{}channels}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{,}
+                              \PYG{n}{kernel\PYGZus{}size}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{kernel\PYGZus{}size\PYGZus{}1}\PYG{p}{,}
+                              \PYG{n}{stride}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{stride\PYGZus{}1}\PYG{p}{,}
+                              \PYG{n}{padding}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Second 1D CNN layer}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cnn2} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Conv1d}\PYG{p}{(}\PYG{n}{in\PYGZus{}channels}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{,}
+                              \PYG{n}{out\PYGZus{}channels}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{,}
+                              \PYG{n}{kernel\PYGZus{}size}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{kernel\PYGZus{}size\PYGZus{}2}\PYG{p}{,}
+                              \PYG{n}{stride}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{stride\PYGZus{}2}\PYG{p}{,}
+                              \PYG{n}{padding}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dropout1} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Dropout}\PYG{p}{(}\PYG{n}{p}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} Linear layer to project raw input to d\PYGZus{}model dimension}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cnn\PYGZus{}proj} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Linear}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{enc\PYGZus{}in}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} combined\PYGZus{}seq\PYGZus{}len = (int(}
+        \PYG{c+c1}{\PYGZsh{}     0.8*configs.seq\PYGZus{}len) \PYGZhy{} self.kernel\PYGZus{}size) // self.stride + 1 + configs.seq\PYGZus{}len \PYGZhy{} int(0.8*configs.seq\PYGZus{}len)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}combined\PYGZus{}seq\PYGZus{}len: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{combined\PYGZus{}seq\PYGZus{}len}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Embedding}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{enc\PYGZus{}embedding} \PYG{o}{=} \PYG{n}{DataEmbedding\PYGZus{}inverted}\PYG{p}{(}\PYG{n}{combined\PYGZus{}seq\PYGZus{}len}\PYG{p}{,} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{,} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{embed}\PYG{p}{,} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{freq}\PYG{p}{,}
+                                                    \PYG{n}{configs}\PYG{o}{.}\PYG{n}{dropout}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{class\PYGZus{}strategy} \PYG{o}{=} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{class\PYGZus{}strategy}
+
+        \PYG{c+c1}{\PYGZsh{} Encoder\PYGZhy{}only architecture}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{encoder} \PYG{o}{=} \PYG{n}{Encoder}\PYG{p}{(}
+            \PYG{p}{[}
+                \PYG{n}{EncoderLayer}\PYG{p}{(}
+                    \PYG{n}{AttentionLayer}\PYG{p}{(}
+                        \PYG{n}{FullAttention}\PYG{p}{(}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{factor}\PYG{p}{,} \PYG{n}{attention\PYGZus{}dropout}\PYG{o}{=}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{dropout}\PYG{p}{,}
+                                      \PYG{n}{output\PYGZus{}attention}\PYG{o}{=}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{output\PYGZus{}attention}\PYG{p}{),} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{,} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{n\PYGZus{}heads}\PYG{p}{),}
+                    \PYG{n}{configs}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{,}
+                    \PYG{n}{configs}\PYG{o}{.}\PYG{n}{d\PYGZus{}ff}\PYG{p}{,}
+                    \PYG{n}{dropout}\PYG{o}{=}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{dropout}\PYG{p}{,}
+                    \PYG{n}{activation}\PYG{o}{=}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{activation}
+                \PYG{p}{)} \PYG{k}{for} \PYG{n}{l} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{e\PYGZus{}layers}\PYG{p}{)}
+            \PYG{p}{],}
+            \PYG{n}{norm\PYGZus{}layer}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{nn}\PYG{o}{.}\PYG{n}{LayerNorm}\PYG{p}{(}\PYG{n}{configs}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{)}
+        \PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{projector} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Linear}\PYG{p}{(}
+            \PYG{n}{configs}\PYG{o}{.}\PYG{n}{d\PYGZus{}model}\PYG{p}{,} \PYG{n}{configs}\PYG{o}{.}\PYG{n}{pred\PYGZus{}len}\PYG{p}{,} \PYG{n}{bias}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{cnn\PYGZus{}seq\PYGZus{}calc}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{seq\PYGZus{}len}\PYG{p}{,} \PYG{n}{kernel\PYGZus{}size}\PYG{p}{,} \PYG{n}{stride}\PYG{p}{):}
+        \PYG{k}{return} \PYG{p}{(}\PYG{n}{seq\PYGZus{}len} \PYG{o}{\PYGZhy{}} \PYG{n}{kernel\PYGZus{}size}\PYG{p}{)} \PYG{o}{//} \PYG{n}{stride} \PYG{o}{+} \PYG{l+m+mi}{1}
+
+    \PYG{k}{def} \PYG{n+nf}{forecast}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{x\PYGZus{}enc}\PYG{p}{,} \PYG{n}{x\PYGZus{}mark\PYGZus{}enc}\PYG{p}{,} \PYG{n}{x\PYGZus{}dec}\PYG{p}{,} \PYG{n}{x\PYGZus{}mark\PYGZus{}dec}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{use\PYGZus{}norm}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} Normalization}
+            \PYG{n}{means} \PYG{o}{=} \PYG{n}{x\PYGZus{}enc}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{keepdim}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{()}
+            \PYG{n}{x\PYGZus{}enc} \PYG{o}{=} \PYG{n}{x\PYGZus{}enc} \PYG{o}{\PYGZhy{}} \PYG{n}{means}
+            \PYG{n}{stdev} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{(}
+
+                \PYG{n}{torch}\PYG{o}{.}\PYG{n}{var}\PYG{p}{(}\PYG{n}{x\PYGZus{}enc}\PYG{p}{,} \PYG{n}{dim}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{keepdim}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{unbiased}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mf}{1e\PYGZhy{}5}\PYG{p}{)}
+            \PYG{n}{x\PYGZus{}enc} \PYG{o}{/=} \PYG{n}{stdev}
+
+        \PYG{n}{B}\PYG{p}{,} \PYG{n}{L}\PYG{p}{,} \PYG{n}{N} \PYG{o}{=} \PYG{n}{x\PYGZus{}enc}\PYG{o}{.}\PYG{n}{shape}
+
+        \PYG{n}{split\PYGZus{}point} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{split\PYGZus{}factor} \PYG{o}{*} \PYG{n}{L}\PYG{p}{)}
+        \PYG{n}{x\PYGZus{}cnn} \PYG{o}{=} \PYG{n}{x\PYGZus{}enc}\PYG{p}{[:,} \PYG{p}{:}\PYG{n}{split\PYGZus{}point}\PYG{p}{,} \PYG{p}{:]}
+        \PYG{n}{x\PYGZus{}raw} \PYG{o}{=} \PYG{n}{x\PYGZus{}enc}\PYG{p}{[:,} \PYG{n}{split\PYGZus{}point}\PYG{p}{:,} \PYG{p}{:]}
+
+        \PYG{c+c1}{\PYGZsh{} Process 80\PYGZpc{} with first CNN layer}
+        \PYG{n}{x\PYGZus{}cnn} \PYG{o}{=} \PYG{n}{x\PYGZus{}cnn}\PYG{o}{.}\PYG{n}{permute}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} [B, N, L] for conv1d}
+        \PYG{n}{x\PYGZus{}cnn} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cnn1}\PYG{p}{(}\PYG{n}{x\PYGZus{}cnn}\PYG{p}{)}
+
+        \PYG{n}{x\PYGZus{}cnn} \PYG{o}{=} \PYG{n}{F}\PYG{o}{.}\PYG{n}{relu}\PYG{p}{(}\PYG{n}{x\PYGZus{}cnn}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Process with second CNN layer}
+        \PYG{n}{x\PYGZus{}cnn} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cnn2}\PYG{p}{(}\PYG{n}{x\PYGZus{}cnn}\PYG{p}{)}
+        \PYG{n}{x\PYGZus{}cnn} \PYG{o}{=} \PYG{n}{x\PYGZus{}cnn}\PYG{o}{.}\PYG{n}{permute}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} [B, L, N]}
+
+        \PYG{n}{x\PYGZus{}cnn} \PYG{o}{=} \PYG{n}{F}\PYG{o}{.}\PYG{n}{relu}\PYG{p}{(}\PYG{n}{x\PYGZus{}cnn}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} Project CNN output to d\PYGZus{}model dimension}
+        \PYG{n}{x\PYGZus{}cnn}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cnn\PYGZus{}proj}\PYG{p}{(}\PYG{n}{x\PYGZus{}cnn}\PYG{p}{)}
+        \PYG{n}{x\PYGZus{}cnn} \PYG{o}{=} \PYG{n}{F}\PYG{o}{.}\PYG{n}{relu}\PYG{p}{(}\PYG{n}{x\PYGZus{}cnn}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} Concatenate CNN output with raw 20\PYGZpc{}}
+        \PYG{n}{x\PYGZus{}combined} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{cat}\PYG{p}{([}\PYG{n}{x\PYGZus{}cnn}\PYG{p}{,} \PYG{n}{x\PYGZus{}raw}\PYG{p}{],} \PYG{n}{dim}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Interpolate x\PYGZus{}mark\PYGZus{}enc to match x\PYGZus{}combined length}
+        \PYG{c+c1}{\PYGZsh{} x\PYGZus{}mark\PYGZus{}enc\PYGZus{}interp = self.mark\PYGZus{}enc\PYGZus{}interpolation(x\PYGZus{}combined, x\PYGZus{}mark\PYGZus{}enc)}
+
+        \PYG{c+c1}{\PYGZsh{} Embedding}
+        \PYG{c+c1}{\PYGZsh{} print(f\PYGZdq{}x\PYGZus{}combined: \PYGZob{}x\PYGZus{}combined.shape\PYGZcb{} and x\PYGZus{}mark\PYGZus{}enc\PYGZus{}interp:\PYGZob{}x\PYGZus{}mark\PYGZus{}enc\PYGZus{}interp.shape\PYGZcb{}\PYGZdq{})}
+        \PYG{n}{enc\PYGZus{}out} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{enc\PYGZus{}embedding}\PYG{p}{(}\PYG{n}{x\PYGZus{}combined}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Encoder}
+        \PYG{n}{enc\PYGZus{}out}\PYG{p}{,} \PYG{n}{attns} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{encoder}\PYG{p}{(}\PYG{n}{enc\PYGZus{}out}\PYG{p}{,} \PYG{n}{attn\PYGZus{}mask}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Projection}
+        \PYG{n}{dec\PYGZus{}out} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{projector}\PYG{p}{(}\PYG{n}{enc\PYGZus{}out}\PYG{p}{)}\PYG{o}{.}\PYG{n}{permute}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)[:,} \PYG{p}{:,} \PYG{p}{:}\PYG{n}{N}\PYG{p}{]}
+
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{use\PYGZus{}norm}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} De\PYGZhy{}Normalization}
+            \PYG{n}{dec\PYGZus{}out} \PYG{o}{=} \PYG{n}{dec\PYGZus{}out} \PYG{o}{*} \PYGZbs{}
+                \PYG{p}{(}\PYG{n}{stdev}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{p}{:]}\PYG{o}{.}\PYG{n}{unsqueeze}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{repeat}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{pred\PYGZus{}len}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{))}
+            \PYG{n}{dec\PYGZus{}out} \PYG{o}{=} \PYG{n}{dec\PYGZus{}out} \PYG{o}{+} \PYGZbs{}
+                \PYG{p}{(}\PYG{n}{means}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{p}{:]}\PYG{o}{.}\PYG{n}{unsqueeze}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{repeat}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{pred\PYGZus{}len}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{))}
+
+        \PYG{k}{return} \PYG{n}{dec\PYGZus{}out}
+
+    \PYG{k}{def} \PYG{n+nf}{mark\PYGZus{}enc\PYGZus{}interpolation}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{x\PYGZus{}combined}\PYG{p}{,} \PYG{n}{x\PYGZus{}mark\PYGZus{}enc}\PYG{p}{):}
+        \PYG{n}{batch\PYGZus{}size}\PYG{p}{,} \PYG{n}{target\PYGZus{}length}\PYG{p}{,} \PYG{n}{\PYGZus{}} \PYG{o}{=} \PYG{n}{x\PYGZus{}combined}\PYG{o}{.}\PYG{n}{shape}
+        \PYG{n}{\PYGZus{}}\PYG{p}{,} \PYG{n}{\PYGZus{}}\PYG{p}{,} \PYG{n}{num\PYGZus{}features} \PYG{o}{=} \PYG{n}{x\PYGZus{}mark\PYGZus{}enc}\PYG{o}{.}\PYG{n}{shape}
+
+        \PYG{n}{x\PYGZus{}mark\PYGZus{}enc} \PYG{o}{=} \PYG{n}{x\PYGZus{}mark\PYGZus{}enc}\PYG{o}{.}\PYG{n}{permute}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+        \PYG{n}{x\PYGZus{}mark\PYGZus{}enc\PYGZus{}interp} \PYG{o}{=} \PYG{n}{F}\PYG{o}{.}\PYG{n}{interpolate}\PYG{p}{(}
+            \PYG{n}{x\PYGZus{}mark\PYGZus{}enc}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{n}{target\PYGZus{}length}\PYG{p}{,} \PYG{n}{mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}linear\PYGZsq{}}\PYG{p}{,} \PYG{n}{align\PYGZus{}corners}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+        \PYG{n}{x\PYGZus{}mark\PYGZus{}enc\PYGZus{}interp} \PYG{o}{=} \PYG{n}{x\PYGZus{}mark\PYGZus{}enc\PYGZus{}interp}\PYG{o}{.}\PYG{n}{permute}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+
+        \PYG{k}{return} \PYG{n}{x\PYGZus{}mark\PYGZus{}enc\PYGZus{}interp}
+
+    \PYG{k}{def} \PYG{n+nf}{forward}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{x\PYGZus{}enc}\PYG{p}{,} \PYG{n}{x\PYGZus{}mark\PYGZus{}enc}\PYG{p}{,} \PYG{n}{x\PYGZus{}dec}\PYG{p}{,} \PYG{n}{x\PYGZus{}mark\PYGZus{}dec}\PYG{p}{,} \PYG{n}{mask}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{):}
+        \PYG{n}{dec\PYGZus{}out} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{forecast}\PYG{p}{(}\PYG{n}{x\PYGZus{}enc}\PYG{p}{,} \PYG{n}{x\PYGZus{}mark\PYGZus{}enc}\PYG{p}{,} \PYG{n}{x\PYGZus{}dec}\PYG{p}{,} \PYG{n}{x\PYGZus{}mark\PYGZus{}dec}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{dec\PYGZus{}out}\PYG{p}{[:,} \PYG{o}{\PYGZhy{}}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{pred\PYGZus{}len}\PYG{p}{:,} \PYG{p}{:]}
+
+
+\end{Verbatim}

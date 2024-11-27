@@ -1,0 +1,28 @@
+\babel@toc {american}{}\relax 
+\contentsline {section}{Introduction}{4}{section*.3}%
+\contentsline {section}{Related work}{4}{section*.4}%
+\contentsline {subsection}{Transformer architecture}{4}{section*.5}%
+\contentsline {subsection}{Convolution-based architectures}{5}{section*.6}%
+\contentsline {subsection}{Convolution attention combined architectures}{6}{section*.7}%
+\contentsline {section}{Inspiration}{6}{section*.8}%
+\contentsline {section}{TCformer}{10}{section*.12}%
+\contentsline {subsection}{Structure Overview}{10}{section*.13}%
+\contentsline {subsection}{Convolution extraction}{12}{section*.15}%
+\contentsline {subsection}{Sequence length reduction}{13}{section*.17}%
+\contentsline {section}{Experiments}{13}{section*.18}%
+\contentsline {subsection}{Experiments for single-step prediction}{13}{section*.19}%
+\contentsline {subsubsection}{Dataset}{14}{section*.20}%
+\contentsline {subsubsection}{Experiment setup}{14}{section*.21}%
+\contentsline {subsubsection}{Results}{14}{section*.22}%
+\contentsline {subsection}{Experiments for sequence to sequence}{17}{section*.27}%
+\contentsline {subsubsection}{Dataset}{17}{section*.28}%
+\contentsline {subsubsection}{Experiment setup}{18}{section*.30}%
+\contentsline {subsubsection}{Results}{19}{section*.31}%
+\contentsline {subsubsection}{Efficiency}{21}{section*.35}%
+\contentsline {section}{Conclusion and Evaluation}{23}{section*.38}%
+\contentsline {section}{Future works}{23}{section*.39}%
+\contentsline {subsection}{Jupyter notebook code for experiment on Transformer's single-step-prediction task}{31}{section*.41}%
+\contentsline {subsection}{Jupyter notebook code for experiment on LSTM's single-step-prediction task}{37}{section*.42}%
+\contentsline {subsection}{The TCformer using 1D CNN for basic Transformer on seq2seq task}{43}{section*.43}%
+\contentsline {subsection}{The TCformer using 2D CNN for basic Transformer on seq2seq task}{46}{section*.44}%
+\contentsline {subsection}{The TCformer using 1D CNN for iTransformer on seq2seq task}{49}{section*.45}%
